@@ -486,6 +486,8 @@ internal enum L10n {
   internal static var commonEditing: String { return L10n.tr("Localizable", "common_editing") }
   /// Editing caption
   internal static var commonEditingCaption: String { return L10n.tr("Localizable", "common_editing_caption") }
+  /// email
+  internal static var commonEmail: String { return L10n.tr("Localizable", "common_email") }
   /// * %1$@ %2$@
   internal static func commonEmote(_ p1: Any, _ p2: Any) -> String {
     return L10n.tr("Localizable", "common_emote", String(describing: p1), String(describing: p2))
@@ -1046,6 +1048,18 @@ internal enum L10n {
   internal static func loginInitialDeviceNameIos(_ p1: Any) -> String {
     return L10n.tr("Localizable", "login_initial_device_name_ios", String(describing: p1))
   }
+  /// BaseUrl not configured
+  internal static var loginWithEmailScreenErrorBaseUrlNotConfigured: String { return L10n.tr("Localizable", "login_with_email_screen_error_base_url_not_configured") }
+  /// Email invalid
+  internal static var loginWithEmailScreenErrorEmailInvalidTitle: String { return L10n.tr("Localizable", "login_with_email_screen_error_email_invalid_title") }
+  /// Decoding well-known failed
+  internal static var loginWithEmailScreenErrorJsonDecodeFailed: String { return L10n.tr("Localizable", "login_with_email_screen_error_json_decode_failed") }
+  /// Failed to discover matrix server by email
+  internal static var loginWithEmailScreenErrorNotConfiguredTitle: String { return L10n.tr("Localizable", "login_with_email_screen_error_not_configured_title") }
+  /// Request failed
+  internal static var loginWithEmailScreenErrorRequestFailed: String { return L10n.tr("Localizable", "login_with_email_screen_error_request_failed") }
+  /// Request not successful
+  internal static var loginWithEmailScreenErrorRequestNotSucessfull: String { return L10n.tr("Localizable", "loginWithEmailScreenErrorRequestNotSucessfull") }
   /// Notification
   internal static var notification: String { return L10n.tr("Localizable", "Notification") }
   /// Call

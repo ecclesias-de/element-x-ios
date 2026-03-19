@@ -49,6 +49,8 @@ class AuthenticationFlowCoordinator: FlowCoordinatorProtocol {
         
         /// The flow is complete.
         case complete
+        
+        case loginWithEmailScreen
     }
     
     enum Event: EventType {
@@ -89,6 +91,8 @@ class AuthenticationFlowCoordinator: FlowCoordinatorProtocol {
         
         /// The user has successfully signed in. The new session can be found in the `userInfo`.
         case signedIn
+        
+        case loginWithEmail
     }
     
     private let stateMachine: StateMachine<State, Event>
@@ -165,14 +169,16 @@ class AuthenticationFlowCoordinator: FlowCoordinatorProtocol {
             navigationStackCoordinator.setSheetCoordinator(nil)
         case .complete:
             fatalError()
+        case .loginWithEmailScreen:
+            navigationRootCoordinator.setSheetCoordinator(nil)
         }
     }
     
     // MARK: - Setup
     
     private func configureStateMachine() {
-        stateMachine.addRoutes(event: .start, transitions: [.initial => .startScreen]) { [weak self] _ in
-            self?.showStartScreen(fromState: .initial)
+        stateMachine.addRoutes(event: .start, transitions: [.initial => .loginWithEmailScreen]) { [weak self] _ in
+            self?.showLoginWithEmailScreen(fromState: .initial)
         }
         
         stateMachine.addRoutes(event: .applyProvisioningParameters, transitions: [.initial => .startScreen,
@@ -207,7 +213,7 @@ class AuthenticationFlowCoordinator: FlowCoordinatorProtocol {
         stateMachine.addRoutes(event: .dismissedServerSelection, transitions: [.serverSelectionScreen => .serverConfirmationScreen])
         
         stateMachine.addRoutes(event: .continueWithOIDC, transitions: [.serverConfirmationScreen => .oidcAuthentication,
-                                                                       .startScreen => .oidcAuthentication]) { [weak self] context in
+                                                                       .startScreen => .oidcAuthentication, .loginWithEmailScreen => .oidcAuthentication]) { [weak self] context in
             guard let (oidcData, window) = context.userInfo as? (OIDCAuthorizationDataProxy, UIWindow) else {
                 fatalError("Missing the OIDC data and presentation anchor.")
             }
@@ -215,14 +221,16 @@ class AuthenticationFlowCoordinator: FlowCoordinatorProtocol {
         }
         stateMachine.addRoutes(event: .cancelledOIDCAuthentication(previousState: .serverConfirmationScreen), transitions: [.oidcAuthentication => .serverConfirmationScreen])
         stateMachine.addRoutes(event: .cancelledOIDCAuthentication(previousState: .startScreen), transitions: [.oidcAuthentication => .startScreen])
+        stateMachine.addRoutes(event: .cancelledOIDCAuthentication(previousState: .loginWithEmailScreen), transitions: [.oidcAuthentication => .loginWithEmailScreen])
         
         stateMachine.addRoutes(event: .continueWithPassword, transitions: [.serverConfirmationScreen => .loginScreen,
-                                                                           .startScreen => .loginScreen]) { [weak self] context in
+                                                                           .startScreen => .loginScreen, .loginWithEmailScreen => .loginScreen]) { [weak self] context in
             let loginHint = context.userInfo as? String
             self?.showLoginScreen(loginHint: loginHint, fromState: context.fromState)
         }
         stateMachine.addRoutes(event: .cancelledPasswordLogin(previousState: .serverConfirmationScreen), transitions: [.loginScreen => .serverConfirmationScreen])
         stateMachine.addRoutes(event: .cancelledPasswordLogin(previousState: .startScreen), transitions: [.loginScreen => .startScreen])
+        stateMachine.addRoutes(event: .cancelledPasswordLogin(previousState: .loginWithEmailScreen), transitions: [.loginScreen => .loginWithEmailScreen])
         
         // Bug Report
         
@@ -332,6 +340,33 @@ class AuthenticationFlowCoordinator: FlowCoordinatorProtocol {
         
         stackCoordinator.setRootCoordinator(coordinator)
         navigationStackCoordinator.setSheetCoordinator(stackCoordinator) // Don't use the callback (interactive dismiss disabled), choose the event with the action.
+    }
+    
+    // MARK: - Login With Email
+
+    func showLoginWithEmailScreen(fromState: State) {
+        let coordinator = LoginWithEmailScreenCoordinator(parameters: LoginWithEmailScreenCoordinatorParameters(authenticationService: authenticationService,
+                                                                                                                appSettings: appSettings,
+                                                                                                                userIndicatorController: userIndicatorController))
+        
+        coordinator.actionsPublisher.sink { [weak self] action in
+            guard let self else {
+                return
+            }
+            switch action {
+            case .continueWithOIDC(let oidcData, let window):
+                stateMachine.tryEvent(.continueWithOIDC, userInfo: (oidcData, window))
+            case .continueWithPassword(let loginHint):
+                stateMachine.tryEvent(.continueWithPassword, userInfo: loginHint)
+            }
+        }
+        .store(in: &cancellables)
+        
+        navigationStackCoordinator.setRootCoordinator(coordinator)
+        
+        if fromState == .initial {
+            navigationRootCoordinator.setRootCoordinator(navigationStackCoordinator)
+        }
     }
     
     // MARK: - Manual Authentication

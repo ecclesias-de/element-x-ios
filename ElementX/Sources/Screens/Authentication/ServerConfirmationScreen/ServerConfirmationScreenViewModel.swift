@@ -168,38 +168,42 @@ class ServerConfirmationScreenViewModel: ServerConfirmationScreenViewModelType, 
     }
     
     private func displayError(_ type: ServerConfirmationScreenAlert) {
-        switch type {
-        case .homeserverNotFound:
-            state.bindings.alertInfo = AlertInfo(id: .homeserverNotFound,
-                                                 title: L10n.errorUnknown,
-                                                 message: L10n.screenChangeServerErrorInvalidHomeserver)
-        case .invalidWellKnown(let error):
-            state.bindings.alertInfo = AlertInfo(id: .invalidWellKnown(error),
-                                                 title: L10n.commonServerNotSupported,
-                                                 message: L10n.screenChangeServerErrorInvalidWellKnown(error))
-        case .slidingSync:
-            let nonBreakingAppName = InfoPlistReader.main.bundleDisplayName.replacingOccurrences(of: " ", with: "\u{00A0}")
-            state.bindings.alertInfo = AlertInfo(id: .slidingSync,
-                                                 title: L10n.commonServerNotSupported,
-                                                 message: L10n.screenChangeServerErrorNoSlidingSyncMessage(nonBreakingAppName))
-        case .login:
-            state.bindings.alertInfo = AlertInfo(id: .login,
-                                                 title: L10n.commonServerNotSupported,
-                                                 message: L10n.screenLoginErrorUnsupportedAuthentication)
-        case .registration:
-            state.bindings.alertInfo = AlertInfo(id: .registration,
-                                                 title: L10n.commonServerNotSupported,
-                                                 message: L10n.errorAccountCreationNotPossible)
-        case .elementProRequired(let serverName):
-            state.bindings.alertInfo = AlertInfo(id: .elementProRequired(serverName: serverName),
-                                                 title: L10n.screenChangeServerErrorElementProRequiredTitle,
-                                                 message: L10n.screenChangeServerErrorElementProRequiredMessage(serverName),
-                                                 primaryButton: .init(title: L10n.screenChangeServerErrorElementProRequiredActionIos) {
-                                                     UIApplication.shared.open(self.appSettings.elementProAppStoreURL)
-                                                 },
-                                                 secondaryButton: .init(title: L10n.actionCancel, role: .cancel, action: nil))
-        case .unknownError:
-            state.bindings.alertInfo = AlertInfo(id: .unknownError)
-        }
+        state.bindings.alertInfo = errorToAlertInfo(type, elementProAppStoreURL: appSettings.elementProAppStoreURL)
+    }
+}
+
+func errorToAlertInfo(_ type: ServerConfirmationScreenAlert, elementProAppStoreURL: URL) -> AlertInfo<ServerConfirmationScreenAlert> {
+    switch type {
+    case .homeserverNotFound:
+        return AlertInfo(id: .homeserverNotFound,
+                         title: L10n.errorUnknown,
+                         message: L10n.screenChangeServerErrorInvalidHomeserver)
+    case .invalidWellKnown(let error):
+        return AlertInfo(id: .invalidWellKnown(error),
+                         title: L10n.commonServerNotSupported,
+                         message: L10n.screenChangeServerErrorInvalidWellKnown(error))
+    case .slidingSync:
+        let nonBreakingAppName = InfoPlistReader.main.bundleDisplayName.replacingOccurrences(of: " ", with: "\u{00A0}")
+        return AlertInfo(id: .slidingSync,
+                         title: L10n.commonServerNotSupported,
+                         message: L10n.screenChangeServerErrorNoSlidingSyncMessage(nonBreakingAppName))
+    case .login:
+        return AlertInfo(id: .login,
+                         title: L10n.commonServerNotSupported,
+                         message: L10n.screenLoginErrorUnsupportedAuthentication)
+    case .registration:
+        return AlertInfo(id: .registration,
+                         title: L10n.commonServerNotSupported,
+                         message: L10n.errorAccountCreationNotPossible)
+    case .elementProRequired(let serverName):
+        return AlertInfo(id: .elementProRequired(serverName: serverName),
+                         title: L10n.screenChangeServerErrorElementProRequiredTitle,
+                         message: L10n.screenChangeServerErrorElementProRequiredMessage(serverName),
+                         primaryButton: .init(title: L10n.screenChangeServerErrorElementProRequiredActionIos) {
+                             UIApplication.shared.open(elementProAppStoreURL)
+                         },
+                         secondaryButton: .init(title: L10n.actionCancel, role: .cancel, action: nil))
+    case .unknownError:
+        return AlertInfo(id: .unknownError)
     }
 }

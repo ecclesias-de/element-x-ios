@@ -1560,3 +1560,10 @@
 "troubleshoot_notifications_test_blocked_users_title" = "Blocked users";
 "troubleshoot_notifications_entry_point_push_history_title" = "Push history";
 "troubleshoot_notifications_entry_point_title" = "Troubleshoot notifications";
+"common_email" = "email";
+"login_with_email_screen_error_email_invalid_title" = "Email invalid";
+"login_with_email_screen_error_not_configured_title" = "Failed to discover matrix server by email";
+"login_with_email_screen_error_request_failed" = "Request failed";
+"loginWithEmailScreenErrorRequestNotSucessfull" = "Request not successful";
+"login_with_email_screen_error_json_decode_failed" = "Decoding well-known failed";
+"login_with_email_screen_error_base_url_not_configured" = "BaseUrl not configured";

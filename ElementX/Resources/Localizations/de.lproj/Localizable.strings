@@ -1559,3 +1559,10 @@
 "troubleshoot_notifications_test_blocked_users_title" = "Blockierte Nutzer";
 "troubleshoot_notifications_entry_point_push_history_title" = "Verlauf pushen";
 "troubleshoot_notifications_entry_point_title" = "Fehlerbehebung für Benachrichtigungen";
+"common_email" = "E-Mail";
+"login_with_email_screen_error_email_invalid_title" = " E-Mail nicht gültig";
+"login_with_email_screen_error_not_configured_title" = "Matrix-Server konnte anhand der E-Mail nicht ermittelt werden";
+"login_with_email_screen_error_request_failed" = "Request failed";
+"loginWithEmailScreenErrorRequestNotSucessfull" = "Request not successful";
+"login_with_email_screen_error_json_decode_failed" = "Decoding well-known failed";
+"login_with_email_screen_error_base_url_not_configured" = "BaseUrl not configured";

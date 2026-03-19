@@ -628,6 +628,14 @@ extension PreviewTests {
     }
 
     @Test
+    func loginWithEmailScreen() async throws {
+        AppSettings.resetAllSettings() // Ensure this test's previews start with fresh settings.
+        for (index, preview) in LoginWithEmailScreen_Previews._allPreviews.enumerated() {
+            try await assertSnapshots(matching: preview, step: index)
+        }
+    }
+
+    @Test
     func longPressWithFeedback() async throws {
         AppSettings.resetAllSettings() // Ensure this test's previews start with fresh settings.
         for (index, preview) in LongPressWithFeedback_Previews._allPreviews.enumerated() {

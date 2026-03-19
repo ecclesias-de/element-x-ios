@@ -315,6 +315,10 @@ extension AccessibilityTests {
         try await performAccessibilityAudit(named: "LoginScreen_Previews")
     }
 
+    func testLoginWithEmailScreen() async throws {
+        try await performAccessibilityAudit(named: "LoginWithEmailScreen_Previews")
+    }
+
     func testLongPressWithFeedback() async throws {
         try await performAccessibilityAudit(named: "LongPressWithFeedback_Previews")
     }
