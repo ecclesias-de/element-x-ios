@@ -1,7 +1,7 @@
 settings:
-  APP_DISPLAY_NAME: Element X
-  PRODUCTION_APP_NAME: Element
-  APP_GROUP_IDENTIFIER: group.io.element
-  BASE_BUNDLE_IDENTIFIER: io.element.elementx
+  APP_DISPLAY_NAME: ecclesias.Chat
+  PRODUCTION_APP_NAME: ecclesias.Chat
+  APP_GROUP_IDENTIFIER: group.net.ecclesias.chat
+  BASE_BUNDLE_IDENTIFIER: net.ecclesias.chat
   ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: "colors/accent-color"
-  DEVELOPMENT_TEAM: 7J4U792NQT
+  DEVELOPMENT_TEAM: TC62G4GBN8
