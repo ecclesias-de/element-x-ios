@@ -2,14 +2,44 @@
   "fill" : "automatic",
   "groups" : [
     {
+      "blur-material" : null,
+      "hidden" : false,
       "layers" : [
         {
+          "blend-mode" : "normal",
+          "fill" : "none",
           "glass" : false,
-          "image-name" : "AppIcon.png",
-          "name" : "AppIcon"
+          "hidden" : false,
+          "image-name" : "ic_launcher_foreground_ecclesiaschat.png",
+          "name" : "ic_launcher_foreground_ecclesiaschat",
+          "position" : {
+            "scale" : 4,
+            "translation-in-points" : [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "fill" : {
+            "solid" : "display-p3:0.03855,0.13453,0.19424,1.00000"
+          },
+          "glass" : false,
+          "hidden" : false,
+          "image-name" : "Ecclesias_chat_logo_1024x1024.png",
+          "name" : "Ecclesias_chat_logo_1024x1024",
+          "position" : {
+            "scale" : 10,
+            "translation-in-points" : [
+              0,
+              0
+            ]
+          }
         }
       ],
+      "lighting" : "individual",
       "name" : "Background",
+      "opacity" : 1,
       "shadow" : {
         "kind" : "none",
         "opacity" : 0.5
