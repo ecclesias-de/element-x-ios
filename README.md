@@ -1,3 +1,34 @@
+# ecclesias.Chat
+
+## relevant documentation
+* [CONTRIBUTING.md](CONTRIBUTING.md)
+* [AGENTS.md](AGENTS.md) (Because i gues, documenation for humans is not that relavant...)
+
+## Run
+0. (`swift run tools setup-project` setup project dependecies. [CONTRIBUTING.md#setup-project](CONTRIBUTING.md#setup-project))
+1. run `xcodegen`
+2. open element x project with xcode (`./ElementX.xcodeproj/project.pbxproj`)
+3. run app and test manualy: in xcode menue bar `Product > Run`
+
+## Build
+0. (`swift run tools setup-project` setup project dependecies. [CONTRIBUTING.md#setup-project](CONTRIBUTING.md#setup-project)) 
+1. set `settings` `MARKETING_VERSION` in `project.yml`. The maketing version should follow this schema: `<element major version>.<element minor version>.<element patch version * 100 + ecclesias chat version counter>`. (Apple only allows 3 numbers seperated by dots as version)
+2. run `xcodegen`, to update the xcode project with the marketing version
+3. commit changes (project.yml und xcode project)
+4. create a tag following this schema: `<element x tag>-0ecclesias<version counter>[-rc<release candidate counter>]`. The rc counter is not represented in the `MARKETING_VERSION`! Apps versions will only be distinguishable by upload datetime.
+5. open element x project with xcode (`./ElementX.xcodeproj/project.pbxproj`)
+6. let xcode build index
+7. run app and test manualy: in xcode menue bar `Product > Run`
+8. run tests: in xcode menue bar `Product > Test` (todo: check if it works like thah + make test runnable)
+9. build app: in xcode menue bar `Product > Archive`
+10. Push to app store: In the window openin when the build is done:
+    1. click `Distribute App` button
+    2. select `App Store Connect`
+    3. click `Distrbute` button (todo: check if it works like thah)
+11. Go to https://appstoreconnect.apple.com/apps/6503890817/distribution/ios/version/deliverable and release the new version
+
+# Original Element X README
+
 [![Element iOS Matrix room #element-x-ios:matrix.org](https://img.shields.io/matrix/element-x-ios:matrix.org.svg?label=%23element-x-ios:matrix.org&logo=matrix&server_fqdn=matrix.org)](https://matrix.to/#/#element-x-ios:matrix.org)
 ![GitHub](https://img.shields.io/github/license/element-hq/element-x-ios)
 
