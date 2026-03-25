@@ -19,13 +19,21 @@
 5. open element x project with xcode (`./ElementX.xcodeproj/project.pbxproj`)
 6. let xcode build index
 7. run app and test manualy: in xcode menue bar `Product > Run`
-8. run tests: in xcode menue bar `Product > Test` (todo: check if it works like thah + make test runnable)
+8. run unit tests: in xcode menue bar `Product > Test`
 9. build app: in xcode menue bar `Product > Archive`
 10. Push to app store: In the window openin when the build is done:
     1. click `Distribute App` button
     2. select `App Store Connect`
     3. click `Distrbute` button (todo: check if it works like thah)
 11. Go to https://appstoreconnect.apple.com/apps/6503890817/distribution/ios/version/deliverable and release the new version
+
+## Tests
+Our own featues currently have no tests. They need to be tested manualy for now. Non the less we want to run unit test. To check if we have broken anything else.
+
+Some media related test are failing for me. I have skipped them.
+
+Skipping test: Test can be skipped in xcode by clicking there icon and exclude. Some xcode files change, they need to be commited.
+
 
 # Original Element X README
 

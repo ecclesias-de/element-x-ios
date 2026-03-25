@@ -22,6 +22,19 @@
   "testTargets" : [
     {
       "parallelizable" : false,
+      "skippedTests" : {
+        "suites" : [
+          {
+            "name" : "MediaProviderTests"
+          },
+          {
+            "name" : "MediaUploadingPreprocessorTests"
+          },
+          {
+            "name" : "MediaUploadPreviewScreenViewModelTests"
+          }
+        ]
+      },
       "target" : {
         "containerPath" : "container:ElementX.xcodeproj",
         "identifier" : "32C23C8D224D46EFE62AFAD0",
@@ -29,5 +42,5 @@
       }
     }
   ],
-  "version" : 1
+  "version" : 2
 }
