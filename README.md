@@ -34,6 +34,9 @@ Some media related test are failing for me. I have skipped them.
 
 Skipping test: Test can be skipped in xcode by clicking there icon and exclude. Some xcode files change, they need to be commited.
 
+## 
+<img src="https://erzbistum-hamburg.de/_layout/EBHH_Logo_hoch.png" alt="erzbistum-hamburg logo" width="200"/></br>
+Mit freundlicher Unterstützung vom Erzbistum Hamburg
 
 # Original Element X README
 
